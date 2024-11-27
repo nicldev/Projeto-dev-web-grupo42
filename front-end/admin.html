@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Administração</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Incluindo o FontAwesome da CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+  <div class="admin-container">
+    <h1 class="admin-title">Lista de Usuários</h1>
+    
+    <div class="users-list">
+      <!-- Exemplo de um usuário -->
+      <div class="user-item">
+        <span class="user-name">Usuário 1</span>
+        <button class="delete-btn">
+          <i class="fa fa-trash"></i> <!-- Ícone de lixeira -->
+        </button>
+      </div>
+
+      <!-- Exemplo de outro usuário -->
+      <div class="user-item">
+        <span class="user-name">Usuário 2</span>
+        <button class="delete-btn">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+
+      <!-- Adicione mais usuários aqui -->
+    </div>
+  </div>
+
+  <script>
+    // Exemplo de código JavaScript para manipulação do botão de excluir
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const userItem = button.closest('.user-item');
+        userItem.remove();
+        // Aqui você pode adicionar lógica para remover o usuário do banco de dados
+      });
+    });
+  </script>
+</body>
+</html>

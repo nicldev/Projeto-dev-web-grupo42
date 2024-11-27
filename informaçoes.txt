@@ -1,0 +1,4 @@
+Registro de usuário: POST http://localhost:3000/api/users/register
+Login de usuário: POST http://localhost:3000/api/users/login
+Lista de usuários: GET http://localhost:3000/api/users/users
+Excluir usuário: DELETE http://localhost:3000/api/users/users/:id
