@@ -1,5 +1,5 @@
 ## Como executar o projeto;  
-abra o terminal na pasta raiz e execute node server.js
+abra o terminal na pasta raiz e execute: node server.js
 
 ## Funcionalidades
 Cadastrar usuário
