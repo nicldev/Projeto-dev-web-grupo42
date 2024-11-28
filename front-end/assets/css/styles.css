@@ -161,6 +161,7 @@ img{
 
 .login__button:hover{
   background-color: var(--first-color-dark);
+  cursor: pointer;
 }
 
 .login__account, .login__signin, .login__signup{
@@ -361,3 +362,22 @@ img{
   .fa-trash {
     color: #F44336;
   }
+
+  .logout-btn {
+    background-color: #b836f4; /* Cor vermelha para indicar logout */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+  }
+  
+  .logout-btn:hover {
+    background-color: #842fd3; /* Sombra mais escura ao passar o mouse */
+  }
+  

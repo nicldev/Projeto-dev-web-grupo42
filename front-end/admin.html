@@ -16,6 +16,7 @@
       <!-- Os usuários serão carregados aqui -->
     </div>
   </div>
+  <button id="logout-btn" class="logout-btn">Logout</button>
 
   <!-- Modal de Edição -->
   <div id="edit-modal" class="modal" style="display:none;">
@@ -164,6 +165,19 @@
 
     // Carregar os usuários assim que a página for carregada
     loadUsers();
+
+    // Função para fazer logout
+function logout() {
+  // Remove o token de autenticação do localStorage
+  localStorage.removeItem('authToken');
+
+  // Redireciona o usuário para a página de login ou index.html
+  window.location.href = 'index.html';
+}
+
+// Adiciona o evento de clique ao botão de logout
+document.getElementById('logout-btn').addEventListener('click', logout);
+
   </script>
 
 
