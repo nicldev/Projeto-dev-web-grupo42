@@ -1,4 +1,4 @@
-##Como executar o projeto;  
+## Como executar o projeto;  
 abra o terminal na pasta raiz e execute node server.js
 
 ## Funcionalidades
@@ -7,7 +7,7 @@ Fazer login com credenciais cadastradas
 Excluir usuário
 Editar credenciais do usuário
 
-##Testes de backend no postman
+## Testes de backend no postman
 
 ![Screenshot 2024-11-26 123703](https://github.com/user-attachments/assets/35e41756-e12d-441a-a5fb-dc20c81d562f)
 ![Screenshot 2024-11-26 122450](https://github.com/user-attachments/assets/33bf4d82-bba9-4ba7-906d-ce5066283a66)
