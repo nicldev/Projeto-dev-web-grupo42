@@ -1,7 +1,7 @@
-## Como executar o projeto;  
+## Como executar o projeto:
 abra o terminal na pasta raiz e execute: node server.js
 
-## Funcionalidades
+## Funcionalidades:
  Cadastrar usuário,
  Fazer login com credenciais cadastradas,
  Excluir usuário,
@@ -12,7 +12,7 @@ abra o terminal na pasta raiz e execute: node server.js
 https://github.com/user-attachments/assets/f04aacfb-11dc-4b68-9fb6-d88fc428551f
 
 
-## Testes de backend no postman, apis post,get,put,delete
+## Testes de backend no postman, apis post,get,put,delete:
 
 ![Screenshot 2024-11-26 123703](https://github.com/user-attachments/assets/35e41756-e12d-441a-a5fb-dc20c81d562f)
 ![Screenshot 2024-11-26 122450](https://github.com/user-attachments/assets/33bf4d82-bba9-4ba7-906d-ce5066283a66)
