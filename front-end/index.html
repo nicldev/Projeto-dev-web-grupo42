@@ -19,17 +19,17 @@
                         <h1 class="login__title">Faça login</h1>
                         <div class="login__box">
                             <i class='bx bx-user login__icon'></i>
-                            <input type="text" placeholder="Email" class="login__input">
+                            <input id="loginEmail" type="email" placeholder="Email" class="login__input">
                         </div>
-    
+                        
                         <div class="login__box">
                             <i class='bx bx-lock-alt login__icon'></i>
-                            <input type="password" placeholder="Senha" class="login__input">
+                            <input id="loginPassword" type="password" placeholder="Senha" class="login__input">
                         </div>
 
                         <a href="#" class="login__forgot"></a>
 
-                        <a href="admin.html" class="login__button">Entrar</a>
+                        <button type="submit" class="login__button">Entrar</button>
 
                         <div>
                             <span class="login__account">Não tem uma conta?</span>
@@ -39,12 +39,45 @@
                 </div>
             </div>
         </div>
-
+        
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="assets/js/main.js"></script>
+        
+        <script src="login.js"></script>
         <script>
-            
+            // Captura o evento de clique no "cadastre-se"
             document.getElementById('sign-up').addEventListener('click', function() {
                 window.location.href = 'cadastro.html'; 
+            });
+            
+            // Captura o submit do formulário de login
+            document.getElementById('login-in').addEventListener('submit', async function(event) {
+                event.preventDefault(); // Previne o comportamento padrão de submit
+    
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+    
+                // Verifica se os campos de email e senha estão preenchidos
+                if (!email || !password) {
+                    alert('Por favor, preencha todos os campos!');
+                    return;
+                }
+    
+                try {
+                    // Requisição POST para a API de login
+                    const response = await axios.post('http://localhost:3000/api/users/login', {
+                        email,
+                        password
+                    });
+    
+                    // Se as credenciais forem válidas, armazena o token e redireciona
+                    localStorage.setItem('authToken', response.data.token);
+                    window.location.href = 'admin.html';
+    
+                } catch (error) {
+                    console.error('Erro no login:', error);
+                    alert('Credenciais inválidas. Tente novamente.');
+                }
             });
         </script>
     </body>

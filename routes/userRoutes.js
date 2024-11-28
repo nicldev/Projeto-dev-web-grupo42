@@ -54,6 +54,8 @@ router.get('/users', authenticateToken, async (req, res) => {
   res.status(200).send(users);
 });
 
+
+
 // Excluir usuário (rota protegida)
 router.delete('/users/:id', authenticateToken, async (req, res) => {
   const user = await User.findByIdAndDelete(req.params.id);

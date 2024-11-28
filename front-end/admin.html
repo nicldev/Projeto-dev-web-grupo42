@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel de Administração</title>
   <link rel="stylesheet" href="assets/css/styles.css">
-  <!-- Incluindo o FontAwesome da CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -13,38 +12,161 @@
   <div class="admin-container">
     <h1 class="admin-title">Lista de Usuários</h1>
     
-    <div class="users-list">
-      <!-- Exemplo de um usuário -->
-      <div class="user-item">
-        <span class="user-name">Usuário 1</span>
-        <button class="delete-btn">
-          <i class="fa fa-trash"></i> <!-- Ícone de lixeira -->
-        </button>
-      </div>
-
-      <!-- Exemplo de outro usuário -->
-      <div class="user-item">
-        <span class="user-name">Usuário 2</span>
-        <button class="delete-btn">
-          <i class="fa fa-trash"></i>
-        </button>
-      </div>
-
-      <!-- Adicione mais usuários aqui -->
+    <div class="users-list" id="users-list">
+      <!-- Os usuários serão carregados aqui -->
     </div>
   </div>
 
-  <script>
-    // Exemplo de código JavaScript para manipulação do botão de excluir
-    const deleteButtons = document.querySelectorAll('.delete-btn');
+  <!-- Modal de Edição -->
+  <div id="edit-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Editar Usuário</h2>
+      <form id="edit-form">
+        <input type="hidden" id="edit-user-id">
+        <label for="edit-name">Nome:</label>
+        <input type="text" id="edit-name" required>
+        <label for="edit-email">Email:</label>
+        <input type="email" id="edit-email" required>
+        <label for="edit-password">Senha:</label>
+        <input type="text" id="edit-password" placeholder="Deixe em branco para não alterar">
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  </div>
 
-    deleteButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const userItem = button.closest('.user-item');
-        userItem.remove();
-        // Aqui você pode adicionar lógica para remover o usuário do banco de dados
-      });
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    // Função para carregar os usuários
+    async function loadUsers() {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          window.location.href = 'login.html'; // Redireciona se não tiver token
+          return;
+        }
+
+        const response = await axios.get('http://localhost:3000/api/users/users', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const users = response.data;
+        const usersList = document.getElementById('users-list');
+        
+        // Limpa a lista antes de adicionar os usuários
+        usersList.innerHTML = '';
+
+        users.forEach(user => {
+          const userItem = document.createElement('div');
+          userItem.classList.add('user-item');
+          userItem.innerHTML = `
+            <span class="user-name">${user.name}</span>
+            <button class="edit-btn" data-id="${user._id}" data-name="${user.name}" data-email="${user.email}">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="delete-btn" data-id="${user._id}">
+              <i class="fa fa-trash"></i>
+            </button>
+          `;
+          usersList.appendChild(userItem);
+        });
+
+        // Adiciona os eventos de exclusão
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+          button.addEventListener('click', async function() {
+            const userId = button.getAttribute('data-id');
+            if (confirm('Tem certeza que deseja excluir este usuário?')) {
+              await deleteUser(userId);
+              button.closest('.user-item').remove(); // Remove o item da lista
+            }
+          });
+        });
+
+        // Adiciona os eventos de edição
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-name');
+            const userEmail = button.getAttribute('data-email');
+
+            // Preenche o formulário com os dados do usuário
+            document.getElementById('edit-user-id').value = userId;
+            document.getElementById('edit-name').value = userName;
+            document.getElementById('edit-email').value = userEmail;
+
+            // Exibe o modal de edição
+            document.getElementById('edit-modal').style.display = 'block';
+          });
+        });
+        
+      } catch (error) {
+        console.error('Erro ao carregar os usuários:', error);
+        alert('Erro ao carregar os usuários');
+      }
+    }
+
+    // Função para excluir o usuário
+    async function deleteUser(userId) {
+      try {
+        const token = localStorage.getItem('authToken');
+        await axios.delete(`http://localhost:3000/api/users/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        alert('Usuário excluído com sucesso!');
+      } catch (error) {
+        console.error('Erro ao excluir o usuário:', error);
+        alert('Erro ao excluir o usuário');
+      }
+    }
+
+    // Função para atualizar o usuário
+    async function updateUser(userId, name, email, password) {
+      try {
+        const token = localStorage.getItem('authToken');
+        const data = { name, email };
+        
+        // Se a senha foi fornecida, inclua-a no corpo da requisição
+        if (password) {
+          data.password = password;
+        }
+
+        await axios.put(`http://localhost:3000/api/users/users/${userId}`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        alert('Usuário atualizado com sucesso!');
+        document.getElementById('edit-modal').style.display = 'none';
+        loadUsers(); // Recarrega a lista de usuários
+      } catch (error) {
+        console.error('Erro ao atualizar o usuário:', error);
+        alert('Erro ao atualizar o usuário');
+      }
+    }
+
+    // Manipular o envio do formulário de edição
+    document.getElementById('edit-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const userId = document.getElementById('edit-user-id').value;
+      const name = document.getElementById('edit-name').value;
+      const email = document.getElementById('edit-email').value;
+      const password = document.getElementById('edit-password').value;
+
+      updateUser(userId, name, email, password);
     });
+
+    // Carregar os usuários assim que a página for carregada
+    loadUsers();
   </script>
+
+
+
 </body>
 </html>

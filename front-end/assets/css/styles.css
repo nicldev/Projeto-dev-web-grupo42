@@ -302,3 +302,62 @@ img{
     max-width: 800px;
   }
 }
+
+.modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 40px;
+      border-radius: 5px;
+      width: 300px;
+    }
+
+    .modal-content input {
+      width: 100%; 
+      padding: 12px; 
+      font-size: 16px; 
+      border-radius: 5px; 
+      border: 1px solid #ccc; 
+      margin-bottom: 20px; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+    }
+    
+    
+    .modal-content input::placeholder {
+      font-size: 13px; 
+      color: #888; 
+      opacity: 1; 
+      white-space: normal; 
+      word-wrap: break-word; 
+    }
+    
+    .user-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+  
+  .user-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .fa-pencil-alt {
+    color: #000000; 
+    margin-left: 50px;
+  }
+  .fa-trash {
+    color: #F44336;
+  }
