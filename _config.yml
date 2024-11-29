@@ -2,6 +2,9 @@ title: "Projeto-dev-web-grupo42"
 baseurl: "" 
 url: "https://nicldev.github.io/Projeto-dev-web-grupo42"
 
+exclude:
+  - node_modules
+
 plugins:
   - jekyll-seo-tag
   - jekyll-paginate
