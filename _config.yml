@@ -1,0 +1,17 @@
+title: "Projeto-dev-web-grupo42"
+baseurl: "" 
+url: "https://nicldev.github.io/Projeto-dev-web-grupo42"
+
+exclude:
+  - node_modules
+  - .git
+  - .github
+  - .DS_Store
+  - .sass-cache
+  - vendor
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-gist
+  - jekyll-github-metadata
