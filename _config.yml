@@ -1,6 +1,6 @@
 title: "Projeto-dev-web-grupo42"
-baseurl: "/Projeto-dev-web-grupo42" 
-url: "https://nicldev.github.io"
+baseurl: "https://nicldev.github.io/Projeto-dev-web-grupo42" 
+url: "https://nicldev.github.io/Projeto-dev-web-grupo42"
 
 exclude:
   - node_modules
